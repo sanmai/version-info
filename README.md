@@ -4,20 +4,20 @@
 [![Build Status](https://travis-ci.com/sanmai/version-info.svg?branch=master)](https://travis-ci.com/sanmai/version-info)
 [![Coverage Status](https://coveralls.io/repos/github/sanmai/version-info/badge.svg?branch=master)](https://coveralls.io/github/sanmai/version-info?branch=master)
 
-This small library solves a problem where a package wants to know or report own version. 
+This small library solves a problem where a package wants to know or report own version.
 
 This is not a new problem, e.g. there's [ocramius/package-versions](https://github.com/Ocramius/PackageVersions),
-but this solution depends heavely on Composer, and not without an associated IO penalty. 
+but it depends heavely on Composer, and not without an associated IO penalty.
 
 On the contrary, this package solves the same problem but without any extra IO whatsoever. What you need 
 is to instruct Git to [expand placeholders](https://git-scm.com/docs/gitattributes#_export_subst) (detailed 
 instructions below) when adding a file with a constant to an archive of a tagged release. Then you feed 
-this constant to the library, and there is your version. 
+this constant to the library, and there is your version.
 
 Sure, you can't be certain people always install a package from archives. In this case you can use 
 either abovementioned [ocramius/package-versions](https://github.com/Ocramius/PackageVersions), or
-two auxillary classes this library provides to fetch version strings right from Git or from a branch 
-alias from `composer.json`.
+use [two auxillary classes](#fallback-readers) this library provides to fetch version strings right from Git or from a [branch 
+alias](https://getcomposer.org/doc/articles/aliases.md#branch-alias) from `composer.json`.
 
 ## Installation
 
@@ -41,7 +41,7 @@ Amend `.gitattributes` with a path to the file with the class with `export-subst
 /src/MyVersion.php     export-subst
 ```
 
-Where you want to know your version, call a version reader class:
+Where you want to know your version, call a version reader:
 
 ```php
 $reader = \VersionInfo\PlaceholderVersionReader(MyVersion::VERSION_INFO);
@@ -51,7 +51,8 @@ if ($version !== null) {
     return $version;
 }
 
-// fallback on other methods, or return dummy version
+// Fallback on other methods, or return a dummy version.
+// See src/Example.php for a complete example.
 ```
 
 That's all!
@@ -64,13 +65,32 @@ To verify that your version constant is being correctly replaced you can use `gi
 git archive --format=tar v1.1 | grep --text VERSION_INFO
 ```
 
+Should output something like:
+
+```
+c3ff8f6 (tag: v1.1) by John Doe +john.doe@example.com
+```
+
 ## Fallback readers 
 
-Apart from `PlaceholderVersionReader` there are `GitVersionReader` and `ComposerBranchAliasVersionReader`. See this example for details.
+Apart from `PlaceholderVersionReader` there are `GitVersionReader` and `ComposerBranchAliasVersionReader`. [See this example for details.](src/Example.php)
 
 ## Memoization
 
 Any of these classes do not do their own memoization. If you need memoization and lazy loading, try [Later, a deferred object manager](https://github.com/sanmai/later).
+
+```php
+use function Later\later;
+
+$deferredVersion = later(function () {
+    $reader = \VersionInfo\PlaceholderVersionReader(MyVersion::VERSION_INFO);
+    
+    yield $version = $versionReader->getVersionString();
+});
+
+// And at some later point...
+$deferredVersion->get(); // returns memoized version string, computing it on the spot, as needed
+```
 
 ## License
 
