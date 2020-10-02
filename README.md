@@ -65,7 +65,7 @@ To verify that your version constant is being correctly replaced you can use `gi
 git archive --format=tar v1.1 | grep --text VERSION_INFO
 ```
 
-Should output something like:
+The constant should contain something like:
 
 ```
 c3ff8f6 (tag: v1.1) by John Doe +john.doe@example.com
