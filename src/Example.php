@@ -43,9 +43,10 @@ final class Example implements VersionReader
         foreach ([
             new PlaceholderVersionReader(self::VERSION_INFO),
             new GitVersionReader(__DIR__.'/../.git'),
-            new ComposerBranchAliasVersionReader(__DIR__.'/../.git'),
+            new ComposerBranchAliasVersionReader(__DIR__.'/../composer.json', 'master'),
         ] as $versionReader) {
             $version = $versionReader->getVersionString();
+
             if ($version !== null) {
                 return $version;
             }

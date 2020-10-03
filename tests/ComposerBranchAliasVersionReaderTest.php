@@ -37,7 +37,7 @@ class ComposerBranchAliasVersionReaderTest extends TestCase
 {
     public function test_it_reads_version_using_relative_path()
     {
-        $reader = new ComposerBranchAliasVersionReader(__DIR__.'/../composer.json');
+        $reader = new ComposerBranchAliasVersionReader(__DIR__.'/../composer.json', 'master');
         $version = $reader->getVersionString();
 
         $this->assertSame('0.1.x-dev', $version);
@@ -45,7 +45,7 @@ class ComposerBranchAliasVersionReaderTest extends TestCase
 
     public function test_it_reads_version_using_absolute()
     {
-        $reader = new ComposerBranchAliasVersionReader(\realpath(__DIR__.'/../composer.json'));
+        $reader = new ComposerBranchAliasVersionReader(\realpath(__DIR__.'/../composer.json'), 'master');
         $version = $reader->getVersionString();
 
         $this->assertSame('0.1.x-dev', $version);

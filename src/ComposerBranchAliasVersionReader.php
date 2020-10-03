@@ -34,12 +34,16 @@ final class ComposerBranchAliasVersionReader implements VersionReader
     /** @var string */
     private $composerJsonPath;
 
+    /** @var string */
+    private $mainBranch;
+
     /**
      * @param string $composerJsonPath Path to composer.json at the root of the project. Must have a master branch alias. Incurs some IO penalty.
      */
-    public function __construct(string $composerJsonPath)
+    public function __construct(string $composerJsonPath, string $mainBranch = 'main')
     {
         $this->composerJsonPath = $composerJsonPath;
+        $this->mainBranch = $mainBranch;
     }
 
     public function getVersionString(): ?string
@@ -49,6 +53,6 @@ final class ComposerBranchAliasVersionReader implements VersionReader
         }
 
         /** @phan-suppress-next-line PhanTypeArraySuspiciousNullable */
-        return @\json_decode((string) \file_get_contents($this->composerJsonPath), true)['extra']['branch-alias']['dev-master'];
+        return @\json_decode((string) \file_get_contents($this->composerJsonPath), true)['extra']['branch-alias']['dev-'.$this->mainBranch];
     }
 }
