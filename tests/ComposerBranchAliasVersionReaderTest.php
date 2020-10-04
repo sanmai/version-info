@@ -37,7 +37,7 @@ class ComposerBranchAliasVersionReaderTest extends TestCase
 {
     public function test_it_reads_version_using_relative_path()
     {
-        $reader = new ComposerBranchAliasVersionReader(__DIR__.'/../composer.json', 'master');
+        $reader = new ComposerBranchAliasVersionReader(__DIR__.'/../composer.json', 'main');
         $version = $reader->getVersionString();
 
         $this->assertSame('0.1.x-dev', $version);
@@ -45,10 +45,18 @@ class ComposerBranchAliasVersionReaderTest extends TestCase
 
     public function test_it_reads_version_using_absolute()
     {
-        $reader = new ComposerBranchAliasVersionReader(\realpath(__DIR__.'/../composer.json'), 'master');
+        $reader = new ComposerBranchAliasVersionReader(\realpath(__DIR__.'/../composer.json'), 'main');
         $version = $reader->getVersionString();
 
         $this->assertSame('0.1.x-dev', $version);
+    }
+
+    public function test_it_cannot_read_version_for_wrong_branch()
+    {
+        $reader = new ComposerBranchAliasVersionReader(\realpath(__DIR__.'/../composer.json'), 'master');
+        $version = $reader->getVersionString();
+
+        $this->assertNull($version);
     }
 
     public function test_it_does_not_read_version_when_there_is_no_file()
