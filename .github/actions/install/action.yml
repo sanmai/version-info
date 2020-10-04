@@ -25,33 +25,32 @@ inputs:
     description: 'Flags to pass to Composer when installing dependencies.'
     required: false
 
-
 runs:
-    using: "composite"
-    steps:
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v1
-        with:
-          php-version: ${{ inputs.php-version }}
-          extensions: ${{ inputs.extensions }}
-          coverage: ${{ inputs.coverage }}
-          tools: composer:${{ inputs.composer-version }} ${{ inputs.tools }}
+  using: "composite"
+  steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v1
+      with:
+        php-version: ${{ inputs.php-version }}
+        extensions: ${{ inputs.extensions }}
+        coverage: ${{ inputs.coverage }}
+        tools: composer:${{ inputs.composer-version }} ${{ inputs.tools }}
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/composer
-          key: composer-${{ inputs.php-version }}-${{ inputs.composer-version }}-${{ hashFiles('**/composer.*') }}
-          restore-keys: |
-            composer-${{ matrix.php-version }}-${{ inputs.composer-version }}-
-            composer-${{ matrix.php-version }}-
-            composer-
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/composer
+        key: composer-${{ inputs.php-version }}-${{ inputs.composer-version }}-${{ hashFiles('**/composer.*') }}
+        restore-keys: |
+          composer-${{ matrix.php-version }}-${{ inputs.composer-version }}-
+          composer-${{ matrix.php-version }}-
+          composer-
 
-      - name: Validate composer.json
-        run: |
-          composer validate --no-check-publish --no-check-lock
+    - name: Validate composer.json
+      run: |
+        composer validate --no-check-publish --no-check-lock
 
-      - name: Install dependencies
-        run: |
-          composer update --no-interaction --no-progress ${{ inputs.composer-flags }}
+    - name: Install dependencies
+      run: |
+        composer update --no-interaction --no-progress ${{ inputs.composer-flags }}
 
