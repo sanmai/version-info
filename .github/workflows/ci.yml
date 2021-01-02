@@ -14,14 +14,11 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ['7.3', '7.4']
-        dependencies: ['']
+        php-version: ['7.3', '7.4', '8.0']
         include:
-          - { php-version: '7.3', dependencies: '--prefer-lowest' }
-          - { php-version: '8.0', dependencies: '--ignore-platform-req=php' }
+          - { php-version: '7.3', dependencies: '--prefer-lowest', legend: "with lowest dependencies" }
 
-    continue-on-error: ${{ matrix.php-version == '8.0' }}
-    name: PHP ${{ matrix.php-version }} ${{ matrix.dependencies }}
+    name: PHP ${{ matrix.php-version }} ${{ matrix.legend }}
 
     steps:
       - name: Checkout code
@@ -39,7 +36,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/composer
-          key: composer-${{ matrix.php-version }}-${{ hashFiles('**/composer.*') }}
+          key: composer-${{ matrix.php-version }}-${{ hashFiles('composer.*') }}
           restore-keys: |
             composer-${{ matrix.php-version }}-
             composer-
