@@ -58,6 +58,11 @@ class PlaceholderVersionReaderTest extends TestCase
         ];
 
         yield [
+            '2527861 (HEAD -> main, tag: 1.1.8) by John Doe +john.doe@example.com',
+            '1.1.8-2527861 by John Doe +john.doe@example.com',
+        ];
+
+        yield [
             'c3ff8f6 (tag: v1.2) by John Doe +john.doe@example.com',
             'v1.2-c3ff8f6 by John Doe +john.doe@example.com',
         ];
