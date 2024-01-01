@@ -1,8 +1,8 @@
 {
     "name": "sanmai/version-info",
-    "type": "library",
     "description": "Version Info Parser",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Alexey Kopytko",
@@ -11,6 +11,9 @@
             "role": "Developer"
         }
     ],
+    "support": {
+        "issues": "https://github.com/sanmai/version-info/issues"
+    },
     "require": {
         "php": ">=7.3",
         "ext-json": "*"
@@ -25,14 +28,6 @@
         "phpunit/phpunit": "^9.3",
         "vimeo/psalm": ">=3.0.16"
     },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-main": "0.1.x-dev"
-        }
-    },
     "autoload": {
         "psr-4": {
             "VersionInfo\\": "src/"
@@ -43,7 +38,16 @@
             "Tests\\VersionInfo\\": "tests/"
         }
     },
-    "support": {
-        "issues": "https://github.com/sanmai/version-info/issues"
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "infection/extension-installer": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "0.1.x-dev"
+        }
     }
 }
