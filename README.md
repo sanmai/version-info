@@ -1,7 +1,6 @@
 # Version info parser
 
 [![Latest Stable Version](https://poser.pugx.org/sanmai/version-info/v/stable)](https://packagist.org/packages/sanmai/version-info)
-[![Build Status](https://travis-ci.com/sanmai/version-info.svg?branch=master)](https://travis-ci.com/sanmai/version-info)
 [![Coverage Status](https://coveralls.io/repos/github/sanmai/version-info/badge.svg?branch=master)](https://coveralls.io/github/sanmai/version-info?branch=master)
 
 This small library solves a problem where a package wants to know or report own version.
@@ -25,7 +24,7 @@ alias](https://getcomposer.org/doc/articles/aliases.md#branch-alias) from `compo
 composer require sanmai/version-info
 ```
 
-This library needs PHP 7.3 or greater. It was tested to work under PHP 7.x and 8.0.
+This library needs PHP 7.4 or greater. It was tested to work under PHP 7.x and 8.0.
 
 ## Usage
 
