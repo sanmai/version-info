@@ -6,6 +6,8 @@ on:
     branches:
       - master
       - main
+  schedule:
+    - cron: '37 3 15 */5 *'
 
 jobs:
 
