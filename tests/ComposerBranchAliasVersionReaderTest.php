@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This code is licensed under the MIT License.
  *
@@ -45,7 +46,7 @@ class ComposerBranchAliasVersionReaderTest extends TestCase
 
     public function test_it_reads_version_using_absolute()
     {
-        $reader = new ComposerBranchAliasVersionReader(\realpath(__DIR__.'/../composer.json'), 'main');
+        $reader = new ComposerBranchAliasVersionReader(realpath(__DIR__.'/../composer.json'), 'main');
         $version = $reader->getVersionString();
 
         $this->assertSame('0.1.x-dev', $version);
@@ -53,7 +54,7 @@ class ComposerBranchAliasVersionReaderTest extends TestCase
 
     public function test_it_cannot_read_version_for_wrong_branch()
     {
-        $reader = new ComposerBranchAliasVersionReader(\realpath(__DIR__.'/../composer.json'), 'master');
+        $reader = new ComposerBranchAliasVersionReader(realpath(__DIR__.'/../composer.json'), 'master');
         $version = $reader->getVersionString();
 
         $this->assertNull($version);
@@ -69,12 +70,12 @@ class ComposerBranchAliasVersionReaderTest extends TestCase
 
     public function test_it_does_cause_errors_when_there_is_no_branch_alias()
     {
-        $fh = \tmpfile();
-        \fwrite($fh, '{}');
+        $fh = tmpfile();
+        fwrite($fh, '{}');
 
-        $tempFilePath = \stream_get_meta_data($fh)['uri'];
+        $tempFilePath = stream_get_meta_data($fh)['uri'];
 
-        $this->assertNotNull(\json_decode(\file_get_contents($tempFilePath)));
+        $this->assertNotNull(json_decode(file_get_contents($tempFilePath)));
 
         $reader = new ComposerBranchAliasVersionReader($tempFilePath);
         $version = $reader->getVersionString();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This code is licensed under the MIT License.
  *
@@ -46,7 +47,7 @@ class GitVersionReaderTest extends TestCase
 
     public function test_it_reads_version_using_absolute()
     {
-        $reader = new GitVersionReader(\realpath(__DIR__.'/../.git'));
+        $reader = new GitVersionReader(realpath(__DIR__.'/../.git'));
         $version = $reader->getVersionString();
 
         $this->assertIsString($version);

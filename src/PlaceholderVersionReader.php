@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This code is licensed under the MIT License.
  *
@@ -49,7 +50,7 @@ final class PlaceholderVersionReader implements VersionReader
         }
 
         /** @var $parts string[] */
-        if (\preg_match('/^([0-9a-f]+).*?tag: (v?[\d\.]+)\)(.*)/', $this->versionInfoString, $parts)) {
+        if (preg_match('/^([0-9a-f]+).*?tag: (v?[\d\.]+)\)(.*)/', $this->versionInfoString, $parts)) {
             return "{$parts[2]}-{$parts[1]}{$parts[3]}";
         }
 

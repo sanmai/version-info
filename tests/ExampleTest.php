@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This code is licensed under the MIT License.
  *
@@ -42,7 +43,7 @@ class ExampleTest extends TestCase
             $this->markTestSkipped('Skipping development test');
         }
 
-        $this->assertSame(1, \preg_match('/^\$Format:%h%d.*\$$/', Example::VERSION_INFO));
+        $this->assertSame(1, preg_match('/^\$Format:%h%d.*\$$/', Example::VERSION_INFO));
     }
 
     public function test_it_returns_version()

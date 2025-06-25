@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This code is licensed under the MIT License.
  *
@@ -44,10 +45,10 @@ final class GitVersionReader implements VersionReader
 
     public function getVersionString(): ?string
     {
-        if (!\is_dir($this->gitDirectoryPath)) {
+        if (!is_dir($this->gitDirectoryPath)) {
             return null;
         }
 
-        return (string) \exec(\sprintf('git --git-dir=%s describe --tags --dirty=-dev --always', \escapeshellarg($this->gitDirectoryPath)));
+        return (string) exec(\sprintf('git --git-dir=%s describe --tags --dirty=-dev --always', escapeshellarg($this->gitDirectoryPath)));
     }
 }
