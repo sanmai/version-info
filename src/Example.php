@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This code is licensed under the MIT License.
  *
@@ -36,7 +37,7 @@ use VersionInfo\Contracts\VersionReader;
  */
 final class Example implements VersionReader
 {
-    const VERSION_INFO = '$Format:%h%d by %an +%ae$';
+    public const VERSION_INFO = '$Format:%h%d by %an +%ae$';
 
     public function getVersionString(): ?string
     {

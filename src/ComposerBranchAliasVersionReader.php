@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This code is licensed under the MIT License.
  *
@@ -48,11 +49,11 @@ final class ComposerBranchAliasVersionReader implements VersionReader
 
     public function getVersionString(): ?string
     {
-        if (!\is_file($this->composerJsonPath)) {
+        if (!is_file($this->composerJsonPath)) {
             return null;
         }
 
         /** @phan-suppress-next-line PhanTypeArraySuspiciousNullable */
-        return @\json_decode((string) \file_get_contents($this->composerJsonPath), true)['extra']['branch-alias']['dev-'.$this->mainBranch];
+        return @json_decode((string) file_get_contents($this->composerJsonPath), true)['extra']['branch-alias']['dev-'.$this->mainBranch];
     }
 }
