@@ -6,7 +6,7 @@
 This small library solves a problem where a package wants to know or report own version.
 
 This is not a new problem, e.g. there's [ocramius/package-versions](https://github.com/Ocramius/PackageVersions),
-but it depends heavely on Composer, and not without an associated IO penalty.
+but it depends heavily on Composer, and not without an associated IO penalty.
 
 On the contrary, this package solves the same problem but without any extra IO whatsoever. What you need 
 is to instruct Git to [expand placeholders](https://git-scm.com/docs/gitattributes#_export_subst) (detailed 
@@ -15,7 +15,7 @@ this constant to the library, and there is your version.
 
 Sure, you can't be certain people always install a package from archives. In this case you can use 
 either abovementioned [ocramius/package-versions](https://github.com/Ocramius/PackageVersions), or
-use [two auxillary classes](#fallback-readers) this library provides to fetch version strings right from Git or from a [branch 
+use [two auxiliary classes](#fallback-readers) this library provides to fetch version strings right from Git or from a [branch 
 alias](https://getcomposer.org/doc/articles/aliases.md#branch-alias) from `composer.json`.
 
 ## Installation
