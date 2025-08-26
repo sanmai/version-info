@@ -49,7 +49,7 @@ final class PlaceholderVersionReader implements VersionReader
             return null;
         }
 
-        /** @var $parts string[] */
+        /** @var string[] $parts */
         if (preg_match('/^([0-9a-f]+).*?tag: (v?[\d\.]+)\)(.*)/', $this->versionInfoString, $parts)) {
             return "{$parts[2]}-{$parts[1]}{$parts[3]}";
         }
