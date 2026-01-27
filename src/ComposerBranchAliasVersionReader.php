@@ -53,7 +53,6 @@ final class ComposerBranchAliasVersionReader implements VersionReader
             return null;
         }
 
-        /** @phan-suppress-next-line PhanTypeArraySuspiciousNullable */
         return @json_decode((string) file_get_contents($this->composerJsonPath), true)['extra']['branch-alias']['dev-'.$this->mainBranch];
     }
 }
